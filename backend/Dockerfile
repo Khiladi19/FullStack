@@ -12,6 +12,10 @@ RUN npm install
 # Copy all files into the container
 COPY . .
 
+# Build the backend application
+RUN npm run build
+
+
 # Expose the application port
 EXPOSE 5000
 
