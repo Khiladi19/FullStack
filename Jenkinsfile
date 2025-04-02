@@ -46,10 +46,10 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                    sh 'docker build -t abhi702/fullstack-backend:latest ./backend'
-                    sh 'docker build -t abhi702/fullstack-frontend:latest ./frontend'
-                    sh 'docker push abhi702/fullstack-backend:latest'
-                    sh 'docker push abhi702/fullstack-frontend:latest'
+                    sh 'docker build -t abhi702/backend:latest ./backend'
+                    sh 'docker build -t abhi702/frontend:latest ./frontend'
+                    sh 'docker push abhi702/backend:latest'
+                    sh 'docker push abhi702/frontend:latest'
                 }
             }
         }
