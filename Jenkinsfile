@@ -2,12 +2,8 @@ pipeline {
     agent any
 
     environment {
-        NODEJS_HOME = tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
+        NODE_HOME = tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'  // Ensure you have Node.js installed in Jenkins
         PATH = "${NODEJS_HOME}/bin:${env.PATH}"
-        DOCKER_HUB_USER = 'abhi702'
-        DOCKER_HUB_PASS = credentials('docker-hub-password-id')  // Use Jenkins credentials
-        BACKEND_IMAGE = "abhi702/backend:latest"
-        FRONTEND_IMAGE = "abhi702/frontend:latest"
     }
 
     stages {
@@ -27,7 +23,7 @@ pipeline {
         }
 
         stage('Build Application') {
-            steps {
+           steps {
                 sh '''
                 cd backend && npm run build
                 cd ../frontend && npm run build
@@ -36,7 +32,7 @@ pipeline {
         }
 
         stage('Run Tests') {
-            steps {
+             steps {
                 script {
                     try {
                         sh 'cd backend && npm test || echo "Backend tests failed, but continuing..."'
@@ -51,13 +47,10 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                    sh '''
-                    echo $DOCKER_HUB_PASS | docker login -u $DOCKER_HUB_USER --password-stdin
-                    docker build -t $BACKEND_IMAGE ./backend
-                    docker build -t $FRONTEND_IMAGE ./frontend
-                    docker push $BACKEND_IMAGE
-                    docker push $FRONTEND_IMAGE
-                    '''
+                    sh 'docker build -t abhi702/fullstack-backend:latest ./backend'
+                    sh 'docker build -t abhi702/fullstack-frontend:latest ./frontend'
+                    sh 'docker push abhi702/fullstack-backend:latest'
+                    sh 'docker push abhi702/fullstack-frontend:latest'
                 }
             }
         }
