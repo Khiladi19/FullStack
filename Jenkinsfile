@@ -5,7 +5,7 @@ pipeline {
         NODEJS_HOME = tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
         PATH = "${NODEJS_HOME}/bin:${env.PATH}"
         DOCKER_HUB_USER = 'abhi702'
-        DOCKER_HUB_PASS = credentials(q1w2e3r4@#)  // Use Jenkins credentials
+        DOCKER_HUB_PASS = credentials('docker-hub-password-id')  // Use Jenkins credentials
         BACKEND_IMAGE = "abhi702/backend:latest"
         FRONTEND_IMAGE = "abhi702/frontend:latest"
     }
