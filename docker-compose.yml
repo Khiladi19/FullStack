@@ -1,0 +1,17 @@
+version: "3"
+services:
+  frontend:
+    image: abhi702/frontend:14
+    ports:
+      - "4173:4173"
+    depends_on:
+      - backend-service
+    environment:
+      - VITE_BACKEND_URL=http://127.0.0.1:5000  # ✅ Matches .env
+
+  backend-service:  # ✅ Renamed to match frontend .env
+    image: abhi702/backend:13
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/.env
