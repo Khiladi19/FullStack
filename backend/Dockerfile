@@ -16,6 +16,6 @@ COPY . .
 EXPOSE 5000
 
 # Start the backend server
-CMD ["npm", "run","start"]
+CMD ["node","server.js"]
 
 
