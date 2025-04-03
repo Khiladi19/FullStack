@@ -24,7 +24,7 @@ pipeline {
 
         stage('Build Application') {
             steps {
-                sh 'cd frontend && npm run build'
+                sh 'cd frontend && npx vite build'
             }
         }
 
