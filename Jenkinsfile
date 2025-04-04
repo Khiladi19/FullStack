@@ -69,6 +69,17 @@ pipeline {
                 }
             }
         }
+         stage('Delete minikube Deployment & Service') {
+            steps {
+                script {
+                    // Update Kubernetes deployment files to use the latest images
+                    sh '''
+                    kubecle delete deployment backend frontend
+                    kubectl delete service backend-service frontend-service
+                    '''
+                }
+            }
+        }
 
         stage('Update Kubernetes Deployment & Deploy') {
             steps {

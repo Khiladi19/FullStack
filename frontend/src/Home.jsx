@@ -5,7 +5,7 @@ function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 space-y-4">
-      <h1 className="text-3xl font-bold text-gray-800">This is Home Page Welcome</h1>
+      <h1 className="text-3xl font-bold text-gray-800">This is Home Page Wel-come</h1>
 
       <div className="flex space-x-4">
         <button
