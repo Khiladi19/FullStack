@@ -23,7 +23,7 @@ function AppState({ children }) {
     };
     userProfile();
     fetch();
-  }, []);
+  }, [user]);
 
 
   
