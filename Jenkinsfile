@@ -62,20 +62,9 @@ pipeline {
                     sed -i 's|image: abhi702/backend:.*|image: abhi702/backend:latest|' docker-compose.yml
                     sed -i 's|image: abhi702/frontend:.*|image: abhi702/frontend:latest|' docker-compose.yml
 
-                    # Restart services with updated images
-                    docker-compose down
-                    docker-compose up -d
-                    '''
-                }
-            }
-        }
-         stage('Delete minikube Deployment & Service') {
-            steps {
-                script {
-                    // Update Kubernetes deployment files to use the latest images
-                    sh '''
-                    kubectl delete deployment backend frontend
-                    kubectl delete service backend-service frontend-service
+                    # Pull latest images and restart services
+                    docker-compose pull
+                    docker-compose up -d --force-recreate
                     '''
                 }
             }
@@ -84,14 +73,18 @@ pipeline {
         stage('Update Kubernetes Deployment & Deploy') {
             steps {
                 script {
-                    // Update Kubernetes deployment files to use the latest images
                     sh '''
+                    # Ensure deployment files use :latest tag
                     sed -i 's|image: abhi702/backend:.*|image: abhi702/backend:latest|' kuber/backend-deployment.yaml
                     sed -i 's|image: abhi702/frontend:.*|image: abhi702/frontend:latest|' kuber/frontend-deployment.yaml
 
-                    # Apply the updated deployment files to Kubernetes
+                    # Apply changes
                     kubectl apply -f kuber/backend-deployment.yaml
                     kubectl apply -f kuber/frontend-deployment.yaml
+
+                    # Force restart to ensure new images are used
+                    kubectl rollout restart deployment/backend
+                    kubectl rollout restart deployment/frontend
                     '''
                 }
             }
