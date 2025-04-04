@@ -95,10 +95,6 @@ pipeline {
                     kubectl rollout restart deployment/backend
                     kubectl rollout restart deployment/frontend
                     '''
-
-                    
-                    echo "All services started successfully."
-                    '''
                 }
             }
         }
