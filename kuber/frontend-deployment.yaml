@@ -15,6 +15,7 @@ spec:
       containers:
       - name: frontend
         image: abhi702/frontend:14
+        imagePullPolicy: Always
         ports:
         - containerPort: 4173
         env:

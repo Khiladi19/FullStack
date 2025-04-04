@@ -4,6 +4,8 @@ pipeline {
     environment {
         NODE_HOME = tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
         PATH = "${NODE_HOME}/bin:${env.PATH}"
+        VERSION = "v1.0.${BUILD_NUMBER}"  // Unique version per build
+        DOCKER_USER = "abhi702"
     }
 
     stages {
@@ -45,24 +47,32 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    docker build -t abhi702/backend:latest ./backend
-                    docker build -t abhi702/frontend:latest ./frontend
-                    docker push abhi702/backend:latest
-                    docker push abhi702/frontend:latest
+                    # Build versioned images
+                    docker build -t $DOCKER_USER/backend:$VERSION ./backend
+                    docker build -t $DOCKER_USER/frontend:$VERSION ./frontend
+
+                    # Tag as latest
+                    docker tag $DOCKER_USER/backend:$VERSION $DOCKER_USER/backend:latest
+                    docker tag $DOCKER_USER/frontend:$VERSION $DOCKER_USER/frontend:latest
+
+                    # Push all
+                    docker push $DOCKER_USER/backend:$VERSION
+                    docker push $DOCKER_USER/frontend:$VERSION
+                    docker push $DOCKER_USER/backend:latest
+                    docker push $DOCKER_USER/frontend:latest
                     '''
                 }
             }
         }
 
-        stage('Update Docker Compose Image & Restart Services') {
+        stage('Update Docker Compose & Restart') {
             steps {
                 script {
                     sh '''
-                    # Update docker-compose.yaml to use latest images
-                    sed -i 's|image: abhi702/backend:.*|image: abhi702/backend:latest|' docker-compose.yml
-                    sed -i 's|image: abhi702/frontend:.*|image: abhi702/frontend:latest|' docker-compose.yml
+                    # Replace image tags with new version
+                    sed -i "s|image: $DOCKER_USER/backend:.*|image: $DOCKER_USER/backend:$VERSION|" docker-compose.yml
+                    sed -i "s|image: $DOCKER_USER/frontend:.*|image: $DOCKER_USER/frontend:$VERSION|" docker-compose.yml
 
-                    # Pull latest images and restart services
                     docker-compose pull
                     docker-compose up -d --force-recreate
                     '''
@@ -70,19 +80,18 @@ pipeline {
             }
         }
 
-        stage('Update Kubernetes Deployment & Deploy') {
+        stage('Deploy to Kubernetes') {
             steps {
                 script {
                     sh '''
-                    # Ensure deployment files use :latest tag
-                    sed -i 's|image: abhi702/backend:.*|image: abhi702/backend:latest|' kuber/backend-deployment.yaml
-                    sed -i 's|image: abhi702/frontend:.*|image: abhi702/frontend:latest|' kuber/frontend-deployment.yaml
+                    # Update deployment YAMLs with new version
+                    sed -i "s|image: $DOCKER_USER/backend:.*|image: $DOCKER_USER/backend:$VERSION|" kuber/backend-deployment.yaml
+                    sed -i "s|image: $DOCKER_USER/frontend:.*|image: $DOCKER_USER/frontend:$VERSION|" kuber/frontend-deployment.yaml
 
-                    # Apply changes
+                    # Apply and rollout
                     kubectl apply -f kuber/backend-deployment.yaml
                     kubectl apply -f kuber/frontend-deployment.yaml
 
-                    # Force restart to ensure new images are used
                     kubectl rollout restart deployment/backend
                     kubectl rollout restart deployment/frontend
                     '''
@@ -91,5 +100,6 @@ pipeline {
         }
     }
 }
+
 
 

@@ -15,6 +15,7 @@ spec:
       containers:
       - name: backend
         image: abhi702/backend:13
+        imagePullPolicy: Always 
         ports:
         - containerPort: 5000
         env:
