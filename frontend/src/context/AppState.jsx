@@ -4,7 +4,6 @@ import axios from "axios";
 function AppState({ children }) {
   const [message, setMessage] = useState("");
   const [user, setUser] = useState([]);
-  const [token, setToken] = useState("");
   const url = import.meta.env.VITE_BACKEND_URL ||  "http://localhost:5000";
   console.log("Backend URL:", url);
 
@@ -23,7 +22,7 @@ function AppState({ children }) {
     };
     userProfile();
     fetch();
-  }, [user]);
+  }, []);
 
 
   
