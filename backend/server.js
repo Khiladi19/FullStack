@@ -4,7 +4,6 @@ import bodyParser from 'express'
 import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
-// import userRouter from '../backend/routes/user.routes.js'
 import userRouter from './routes/user.routes.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
