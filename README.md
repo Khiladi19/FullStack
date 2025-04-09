@@ -1,4 +1,4 @@
-# FullStack Docker + Kubernates + Jenkins
+# FullStack + Docker + Kubernates + Jenkins
 
 This is a full-stack simple application where users can register, login, profile  features. The project uses **React.js** for the frontend, **Node.js and Express** for the backend, and **MongoDB** as the database. It also includes **Docker** and **Kubernetes** for deployment or **Jenkins** CI/CD piplines.
 
@@ -16,6 +16,33 @@ This is a full-stack simple application where users can register, login, profile
 ## 📁 Project Structure
 FullStack/ ├── frontend/ # React frontend ├── backend/ # Express backend ├── kuber/ # Kubernetes files ├── docker-compose.yml # Docker Compose file
 
+---
+
+## 🖼️ Screenshots
+
+### 🏠 Homepage
+![Home](./images/home.png)
+
+### 🔐 Register Page
+![Register](./images/register.png)
+
+### 🔑 Login Page
+![Login](./images/login.png)
+
+### 👤 Profile Page
+![Profile](./images/profile.png)
+
+### ⚙️ Jenkins UI
+![Jenkins](./images/jenkins.png)
+
+### 🖥️ Jenkins Console Output
+![Jenkins Console](./images/jenkins-console.png)
+
+### ☸️ Kubernetes Dashboard
+![K8s Dashboard](./images/kubernetes-dashboard.png)
+
+### ✅ Successful Deployment
+![Deployed](./images/successfully-deployment.png)
 
 ---
 
@@ -72,13 +99,6 @@ User Registration
 User Login
 JWT Authentication
 Profile token
-
-## 🖼️ Screenshots
-
-### 🔑 Login Page
-![Login](./images/login.png)
-
-
 
 📝 License
 This project is open-source and free to use.
