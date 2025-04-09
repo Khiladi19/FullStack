@@ -91,7 +91,7 @@ Profile token
 ![Jenkins](./screenshots/jenkins.png)
 
 ### 🖥️ Jenkins Console Output
-![Jenkins Console](./screenshots/jenkinns-console.png)
+![Jenkins Console](./screenshots/jenkins-console.png)
 
 ### ☸️ Kubernetes Dashboard
 ![K8s Dashboard](./screenshots/kubernates-dashboard.png)
