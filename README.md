@@ -75,29 +75,10 @@ Profile token
 
 ## 🖼️ Screenshots
 
-### 🏠 Homepage
-![Home](./screenshots/home.png)
-
-### 🔐 Register Page
-![Register](./screenshots/register.png)
 
 ### 🔑 Login Page
-![Login](./image/login.png)
+![Login](image/login.png)
 
-### 👤 Profile Page
-![Profile](./screenshots/profile.png)
-
-### ⚙️ Jenkins UI
-![Jenkins](./screenshots/jenkins.png)
-
-### 🖥️ Jenkins Console Output
-![Jenkins Console](./screenshots/jenkins-console.png)
-
-### ☸️ Kubernetes Dashboard
-![K8s Dashboard](./screenshots/kubernetes-dashboard.png)
-
-### ✅ Successful Deployment
-![Deployed](./screenshots/successfully-deployment.png)
 
 
 📝 License
