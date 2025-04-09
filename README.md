@@ -76,7 +76,7 @@ Profile token
 ## 🖼️ Screenshots
 
 ### 🔑 Login Page
-![Login](.images/login.png)
+![Login](./images/login.png)
 
 
 
