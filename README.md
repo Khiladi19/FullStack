@@ -85,6 +85,8 @@ cd frontend
 npm install
 npm run dev
 
+```
+---
 Create a .env file in frontend/:
 VITE_API_URL=http://localhost:5000
 
